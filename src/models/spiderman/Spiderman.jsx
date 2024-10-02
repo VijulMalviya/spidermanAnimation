@@ -1,15 +1,21 @@
 import React, { useRef } from 'react'
-import { useGraph } from '@react-three/fiber'
 import { useGLTF, useAnimations, Shadow } from '@react-three/drei'
-import { SkeletonUtils } from 'three-stdlib'
 import modalPath from './spiderman-transformed.glb'
 
  const Spiderman = (props) => {
-  const group = useRef()
-  const { scene, animations } = useGLTF(modalPath)
-  const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
-  const { nodes, materials } = useGraph(clone)
-  const { actions } = useAnimations(animations, group)
+  const group = useRef();
+  const { nodes, materials, animations } = useGLTF(modalPath);
+  const { mixer } = useAnimations(animations, group);
+  console.log("ANIMATIONS", animations);
+
+  useEffect(() => {
+    const action = mixer.clipAction(animations.find((a) => a.name === "Armature|Armature|hero_spiderman01_S04@skill06|Base Layer"));
+    if (animations.length > 0) {
+      action.play()
+    }else{
+      action.stop()
+    }
+  }, [mixer, animations, props.isAnimationPlayed]);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
