@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations, Shadow } from '@react-three/drei'
 import modalPath from './spiderman-transformed.glb'
+import useGUI from '../../hooks/useGUI';
 
  const Spiderman = (props) => {
   const group = useRef();
@@ -16,6 +17,23 @@ import modalPath from './spiderman-transformed.glb'
       action.stop()
     }
   }, [mixer, animations, props.isAnimationPlayed]);
+
+
+  useGUI((gui) => {
+    const positionFolder = gui.addFolder("Position");
+    positionFolder.add(group.current.position, "x", -100, 100);
+    positionFolder.add(group.current.position, "y", -100, 100);
+    positionFolder.add(group.current.position, "z", -100, 100);
+    const rotationFolder = gui.addFolder("Rotation");
+    rotationFolder.add(group.current.rotation, "x", 0, Math.PI * 20);
+    rotationFolder.add(group.current.rotation, "y", 0, Math.PI * 20);
+    rotationFolder.add(group.current.rotation, "z", 0, Math.PI * 20);
+    const scaleFolder = gui.addFolder("Scale");
+    scaleFolder.add(group.current.scale, "x", 0.1, 5);
+    scaleFolder.add(group.current.scale, "y", 0.1, 5);
+    scaleFolder.add(group.current.scale, "z", 0.1, 5);
+  });
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
