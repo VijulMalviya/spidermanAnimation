@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations, Shadow } from '@react-three/drei'
 import modalPath from './spiderman-transformed.glb'
 
@@ -8,9 +8,9 @@ import modalPath from './spiderman-transformed.glb'
   const { mixer } = useAnimations(animations, group);
   console.log("ANIMATIONS", animations);
 
-  useEffect(() => {
+  useEffect (() => {
     const action = mixer.clipAction(animations.find((a) => a.name === "Armature|Armature|hero_spiderman01_S04@skill06|Base Layer"));
-    if (animations.length > 0) {
+    if (animations.length > 0 && props.isAnimationPlayed) {
       action.play()
     }else{
       action.stop()
