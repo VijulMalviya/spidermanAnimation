@@ -5,7 +5,7 @@ function App() {
   const [isAnimationPlayed, setIsAnimationPlayed] = useState(false);
 
   const playAnimation = () => {
-    setIsAnimationPlayed(true);
+    setIsAnimationPlayed(!isAnimationPlayed);
   };
   return (
     <>
@@ -20,9 +20,9 @@ function App() {
           zIndex: 1000,
         }}
         onClick={playAnimation}
-        disabled={isAnimationPlayed}
+        
       >
-       {isAnimationPlayed ? "Play Animation" : "Stop Animation"}
+       {!isAnimationPlayed ? "Play Animation" : "Stop Animation"}
       </button>
     <SpiderManArea  isAnimationPlayed={isAnimationPlayed} />
     </>
