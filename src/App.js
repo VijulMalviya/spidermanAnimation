@@ -1,4 +1,5 @@
 import React from 'react'
+import SpiderManArea from './components/area/SpidermanArea'
 
 function App() {
   return (
